@@ -1,19 +1,24 @@
-import * as path from "path";
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from "vite-plugin-dts";
+import { fileURLToPath, URL } from 'node:url';
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    dts()
+    libInjectCss(),
+    dts({ insertTypesEntry: true,
+      cleanVueFileName: true,
+    })
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),      
+      entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
       name: "PWAPrompt",
       fileName: "vue-ios-pwa-prompt"
+
     },
     rollupOptions: {
       external: ["vue"],
@@ -26,6 +31,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src")    }
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   }
 })
