@@ -1,0 +1,55 @@
+<template>
+  <Container v-if="shouldShowPrompt" :delay="delay" :copyTitle="copyTitle" :copySubtitle="copySubtitle"
+    :copyDescription="copyDescription" :copyShareStep="copyShareStep" :copyAddToHomeScreenStep="copyAddToHomeScreenStep"
+    :onClose="onClose ?? (() => { })" :appIconPath="appIconPath" />
+</template>
+
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { useDeviceAndVersion } from '../composables/useDeviceAndVersion';
+import { useNumberOfVisits } from '../composables/useNumberOfVisits';
+import { useShouldShowPrompt } from '../composables/useShouldShowPrompt';
+import Container from './Container.vue';
+
+interface Props {
+  appIconPath?: string;
+  copyAddToHomeScreenStep?: string;
+  copyDescription?: string;
+  copyShareStep?: string;
+  copySubtitle?: string;
+  copyTitle?: string;
+  delay?: number;
+  promptOnVisit?: number;
+  timesToShow?: number;
+  onClose?: (evt: MouseEvent) => void;
+  isShown?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  appIconPath: `/vite.svg`,
+  copyAddToHomeScreenStep: "Press 'Add to Home Screen'",
+  copyDescription: "This website has app functionality. Add it to your home screen to use it in fullscreen and while offline.",
+  copyShareStep: "Press the 'Share' button on the menu bar below",
+  copySubtitle: String(window?.location?.href),
+  copyTitle: "Add to Home Screen",
+  delay: 1000,
+  promptOnVisit: 2,
+  timesToShow: 2,
+  isShown: undefined,
+});
+
+
+const { isValidOS } = useDeviceAndVersion();
+const { numberOfVisits, incrementNumberOfVisits } = useNumberOfVisits();
+const { shouldShowPrompt } = useShouldShowPrompt({
+  promptOnVisit: props.promptOnVisit,
+  timesToShow: props.timesToShow,
+  isShown: props.isShown,
+});
+
+onMounted(() => {
+  if (isValidOS.value && numberOfVisits.value !== undefined) {
+    incrementNumberOfVisits();
+  }
+});
+</script>

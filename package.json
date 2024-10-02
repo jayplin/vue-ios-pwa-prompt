@@ -1,0 +1,51 @@
+{
+  "name": "vue-ios-pwa-prompt",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist",
+    "src/components/"
+  ],
+  "keywords": [
+    "checkbox",
+    "material",
+    "material-ui",
+    "tri-state-checkbox",
+    "vue3",
+    "vue",
+    "vuejs"
+  ],
+  "main": "./dist/vue-ios-pwa-prompt.umd.cjs",
+  "module": "./dist/vue-ios-pwa-prompt.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-ios-pwa-prompt.js",
+      "require": "./dist/vue-ios-pwa-prompt.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.37"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.37"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "path": "^0.12.7",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.2.3",
+    "vue-tsc": "^2.0.29"
+  }
+}
