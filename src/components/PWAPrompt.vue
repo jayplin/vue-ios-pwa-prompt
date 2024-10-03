@@ -11,7 +11,7 @@ import { useNumberOfVisits } from '../composables/useNumberOfVisits';
 import { useShouldShowPrompt } from '../composables/useShouldShowPrompt';
 import Container from './Container.vue';
 
-export interface Props {
+interface Props {
   appIconPath?: string;
   copyAddToHomeScreenStep?: string;
   copyDescription?: string;

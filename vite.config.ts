@@ -8,10 +8,8 @@ import { libInjectCss } from "vite-plugin-lib-inject-css";
 export default defineConfig({
   plugins: [
     vue(),
-    libInjectCss(),
-    dts({ insertTypesEntry: true,
-      cleanVueFileName: true,
-    })
+    dts({ tsconfigPath: './tsconfig.app.json' }),
+        libInjectCss(),
   ],
   build: {
     lib: {

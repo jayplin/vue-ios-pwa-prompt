@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "target": "ES2022",
+    "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
 
     /* Bundler mode */
-    "moduleResolution": "Node10",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
+    "noEmit": true,
 
     /* Linting */
     "strict": true,

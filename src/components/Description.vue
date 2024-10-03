@@ -1,6 +1,6 @@
 <template>
   <div :class="[$style.description, 'iOSPWA-description']">
-    {{ copyDescription }}
+    {{ props.copyDescription }}
   </div>
 </template>
 

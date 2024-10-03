@@ -1,10 +1,10 @@
 <template>
   <div :class="[$style.header, 'iOSPWA-header']">
     <div :class="$style.appInfo">
-      <img :class="$style.appIcon" :src="appIconPath" alt="App Icon" />
+      <img :class="$style.appIcon" :src="props.appIconPath" alt="App Icon" />
       <div :class="$style.appTitleContainer">
-        <span :class="$style.appTitle">{{ copyTitle }}</span>
-        <span :class="$style.appSubtitle">{{ copySubtitle }}</span>
+        <span :class="$style.appTitle">{{ props.copyTitle }}</span>
+        <span :class="$style.appSubtitle">{{ props.copySubtitle }}</span>
       </div>
     </div>
     <CloseButton :onClose="onClose" />
