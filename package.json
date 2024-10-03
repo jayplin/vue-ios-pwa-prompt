@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "files": [
-    "dist",
-    "src/components/"
+    "dist"
   ],
   "keywords": [
     "checkbox",
@@ -18,16 +17,7 @@
   ],
   "main": "./dist/vue-ios-pwa-prompt.umd.cjs",
   "module": "./dist/vue-ios-pwa-prompt.js",
-  "exports": {
-    ".": {
-      "import": "./dist/vue-ios-pwa-prompt.js",
-      "require": "./dist/vue-ios-pwa-prompt.umd.cjs"
-    },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css"
-    }
-  },
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",

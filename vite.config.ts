@@ -8,15 +8,16 @@ import { libInjectCss } from "vite-plugin-lib-inject-css";
 export default defineConfig({
   plugins: [
     vue(),
-    dts({ tsconfigPath: './tsconfig.app.json' }),
-        libInjectCss(),
+    dts({
+      tsconfigPath: './tsconfig.app.json',
+    }),
+    libInjectCss(),
   ],
   build: {
     lib: {
       entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
       name: "PWAPrompt",
-      fileName: "vue-ios-pwa-prompt"
-
+      fileName: "vue-ios-pwa-prompt",
     },
     rollupOptions: {
       external: ["vue"],
