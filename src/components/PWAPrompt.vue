@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, toRef, toRefs } from 'vue';
 import { useDeviceAndVersion } from '../composables/useDeviceAndVersion';
 import { useNumberOfVisits } from '../composables/useNumberOfVisits';
 import { useShouldShowPrompt } from '../composables/useShouldShowPrompt';
@@ -38,13 +38,15 @@ const props = withDefaults(defineProps<Props>(), {
   isShown: undefined,
 });
 
+const isShownRef = toRef(props, 'isShown');
+const propsRef = toRefs(props)
 
 const { isValidOS } = useDeviceAndVersion();
 const { numberOfVisits, incrementNumberOfVisits } = useNumberOfVisits();
 const { shouldShowPrompt } = useShouldShowPrompt({
-  promptOnVisit: props.promptOnVisit,
-  timesToShow: props.timesToShow,
-  isShown: props.isShown,
+  promptOnVisit: propsRef.promptOnVisit,
+  timesToShow: propsRef.timesToShow,
+  isShown: isShownRef,
 });
 
 onMounted(() => {

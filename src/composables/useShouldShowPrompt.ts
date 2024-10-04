@@ -1,41 +1,38 @@
-// src/composables/useShouldShowPrompt.ts
-import { ref, watch } from 'vue';
+import { computed, Ref } from 'vue';
 import { useNumberOfVisits } from './useNumberOfVisits';
 import { useDeviceAndVersion } from './useDeviceAndVersion';
 
 interface UseShouldShowPromptProps {
-  promptOnVisit: number;
-  timesToShow: number;
-  isShown?: boolean;
+  promptOnVisit: Ref<number>;
+  timesToShow: Ref<number>;
+  isShown?: Ref<boolean | undefined>;
 }
 
 export function useShouldShowPrompt({ promptOnVisit, timesToShow, isShown }: UseShouldShowPromptProps) {
-  const shouldShowPrompt = ref<boolean | undefined>(undefined);
   const { isValidOS, isStandalone } = useDeviceAndVersion();
   const { numberOfVisits } = useNumberOfVisits();
 
-  watch(
-    () => [isValidOS.value, numberOfVisits.value, isShown, isStandalone.value],
-    () => {
-      if (isValidOS.value !== undefined && numberOfVisits.value !== undefined && isStandalone.value === false) {
-        const aboveMinVisits = numberOfVisits.value + 1 >= promptOnVisit;
-        const belowMaxVisits = numberOfVisits.value + 1 < promptOnVisit + timesToShow;
+  // Single computed property to handle both manual and automatic prompt logic
+  const shouldShowPrompt = computed(() => {
+    // Manual override with isShown prop
+    if (isShown?.value !== undefined) {
+      return isShown.value;
+    }
 
-        const shouldTrigger = isValidOS.value && aboveMinVisits && belowMaxVisits;
-        console.log({ aboveMinVisits, belowMaxVisits, shouldTrigger, isValidOS: isValidOS.value });
+    // Automatic logic based on the number of visits and OS validation
+    if (
+      isValidOS.value !== undefined &&
+      numberOfVisits.value !== undefined &&
+      isStandalone.value === false
+    ) {
+      const aboveMinVisits = numberOfVisits.value + 1 >= promptOnVisit.value;
+      const belowMaxVisits = numberOfVisits.value + 1 < promptOnVisit.value + timesToShow.value;
 
-        shouldShowPrompt.value =
-          (isShown === undefined && shouldTrigger) ||
-          (isShown !== undefined && isShown);
-          console.log(isShown);
-          
-        console.log(shouldShowPrompt.value);
+      return isValidOS.value && aboveMinVisits && belowMaxVisits;
+    }
 
-
-      }
-    },
-    { immediate: true }
-  );
+    return false;
+  });
 
   return { shouldShowPrompt };
 }

@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import PWAPrompt from './components/PWAPrompt.vue'
+
+const shouldShowPWAPrompt = ref(false)
+
 </script>
 
 <template>
 
-  <PWAPrompt :isShown="true"  />
+  <PWAPrompt :isShown="shouldShowPWAPrompt"  />
   <div>
+    <button @click="shouldShowPWAPrompt = true">install</button>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
