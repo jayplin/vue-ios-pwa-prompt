@@ -7,7 +7,7 @@
         <span :class="$style.appSubtitle">{{ props.copySubtitle }}</span>
       </div>
     </div>
-    <CloseButton :onClose="onClose" />
+    <CloseButton @close="emit('close')" />
   </div>
 </template>
 
@@ -18,8 +18,10 @@ const props = defineProps<{
   appIconPath: string;
   copySubtitle: string;
   copyTitle: string;
-  onClose: (evt: MouseEvent) => void;
 }>();
+
+const emit = defineEmits(['close']);  
+
 </script>
 
 <style module>

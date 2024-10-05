@@ -1,7 +1,7 @@
 <template>
-  <Container v-if="shouldShowPrompt" :delay="delay" :copyTitle="copyTitle" :copySubtitle="copySubtitle"
+  <Container v-if="shouldShowPrompt" :isShown="isShown" :delay="delay" :copyTitle="copyTitle" :copySubtitle="copySubtitle"
     :copyDescription="copyDescription" :copyShareStep="copyShareStep" :copyAddToHomeScreenStep="copyAddToHomeScreenStep"
-    :onClose="onClose ?? (() => { })" :appIconPath="appIconPath" />
+     :appIconPath="appIconPath" @close="emit('close')" />
 </template>
 
 <script setup lang="ts">
@@ -21,7 +21,6 @@ interface Props {
   delay?: number;
   promptOnVisit?: number;
   timesToShow?: number;
-  onClose?: (evt: MouseEvent) => void;
   isShown?: boolean;
 }
 
@@ -40,6 +39,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isShownRef = toRef(props, 'isShown');
 const propsRef = toRefs(props)
+
+
+const emit = defineEmits(['close']);  
 
 const { isValidOS } = useDeviceAndVersion();
 const { numberOfVisits, incrementNumberOfVisits } = useNumberOfVisits();

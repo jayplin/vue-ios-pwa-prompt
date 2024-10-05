@@ -1,12 +1,12 @@
 <template>
-  <div :class="$style.container">
-    <Overlay :isOpen="isOpen" :onClose="dismissPrompt" />
+  <div :class="[$style.container, 'iOSPWA-container']">
+    <Overlay :isOpen="isOpen" @close="dismissPrompt" />
     <Panel :isOpen="isOpen">
       <Header
         :appIconPath="appIconPath"
         :copySubtitle="copySubtitle"
         :copyTitle="copyTitle"
-        :onClose="dismissPrompt"
+        @close="dismissPrompt"
       />
       <Divider />
       <Description :copyDescription="copyDescription" />
@@ -39,19 +39,18 @@ const props = defineProps<{
   copySubtitle: string;
   copyTitle: string;
   delay: number;
-  onClose: (evt: MouseEvent) => void;
 }>();
 
 const isOpen = ref(!Boolean(props.delay));
 let timeoutId: number | undefined;
 
-const dismissPrompt = (evt: MouseEvent) => {
+const emit = defineEmits(['close'])
+
+const dismissPrompt = () => {
   document.body.classList.remove($style.noScroll);
   isOpen.value = false;
 
-  if (typeof props.onClose === 'function') {
-    props.onClose(evt);
-  }
+  emit('close')
 };
 
 onMounted(() => {
@@ -82,6 +81,7 @@ onBeforeUnmount(() => {
   font-smooth: antialiased;
   -moz-osx-font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
+
 }
 .noScroll {
   overflow: hidden;

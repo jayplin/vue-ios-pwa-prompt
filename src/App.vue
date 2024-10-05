@@ -8,7 +8,7 @@ const shouldShowPWAPrompt = ref(false)
 
 <template>
 
-  <PWAPrompt :isShown="shouldShowPWAPrompt"  />
+  <PWAPrompt :isShown="shouldShowPWAPrompt" @close="shouldShowPWAPrompt = false"/>
   <div>
     <button @click="shouldShowPWAPrompt = true">install</button>
     <a href="https://vitejs.dev" target="_blank">

@@ -1,13 +1,14 @@
 <template>
   <div :class="[$style.overlay, { [$style.visible]: props.isOpen }, 'iOSPWA-overlay']" aria-label="Close" role="button"
-    @click="onClose"></div>
+    @click="emit('close')"></div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
   isOpen: boolean;
-  onClose: (evt: MouseEvent) => void;
 }>();
+
+const emit = defineEmits(['close']);  
 </script>
 
 <style module>
