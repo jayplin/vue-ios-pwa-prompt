@@ -1,11 +1,13 @@
 
-# Vue-iOS-PWA-prompt
+# Vue3 port of react-ios-pwa-prompt
 
-[![npm version](http://img.shields.io/npm/v/vue-ios-pwa-prompt.svg?style=flat)](https://npmjs.org/package/vue-ios-pwa-prompt "View this project on npm") ![Gzip file size](https://img.badgesize.io/chrisdancee/vue-ios-pwa-prompt/master/dist/vue-ios-pwa-prompt.js?compression=gzip)
+[![npm version](http://img.shields.io/npm/v/vue-ios-pwa-prompt.svg?style=flat)](https://npmjs.org/package/vue-ios-pwa-prompt "View this project on npm") 
 
-> Polyfilling PWAs for iOS
+> Vue Port from 
 
 A Vue 3 component that provides a customizable Progressive Web App (PWA) prompt telling the user to 'Add to Home Screen'. The prompt behavior is baked into Android devices, yet iOS is still lagging behind. This component aims to provide a simple way to provide this functionality on iOS for websites that are PWA-ready. The prompt styles closely match iOS designs for both light and dark UI modes to appear native to the user.
+
+
 
 <hr>
 
@@ -59,7 +61,6 @@ You can configure the `PWAPrompt` component by passing in various props. Here is
 | `timesToShow`            | Number of consecutive visits to show the prompt        | 2                                                                                                         |
 | `promptOnVisit`          | On which visit should the first prompt be shown?       | 2                                                                                                         |
 | `delay`                  | Delay in milliseconds before showing the prompt        | 1000                                                                                                      |
-| `onClose`                | Callback function when the prompt is dismissed         | `() => undefined`                                                                                         |
 | `copyTitle`              | The title of the prompt                                | "Add to Home Screen"                                                                                       |
 | `copySubtitle`           | The subtitle of the prompt                             | `String(window.location.href)`                                                                             |
 | `copyDescription`        | The description of the prompt                          | "This website has app functionality. Add it to your home screen to use it in fullscreen and while offline."|
@@ -67,6 +68,8 @@ You can configure the `PWAPrompt` component by passing in various props. Here is
 | `copyAddToHomescreenStep`| The Add to Homescreen button copy                      | "Press 'Add to Home Screen'"                                                                              |
 | `appIconPath`            | Path to an icon or favicon to be shown as the app icon | `https://s2.googleusercontent.com/s2/favicons?domain=${window.location.origin}`                            |
 | `isShown`                | Set to `true` to manually show the prompt              | `undefined`                                                                                               |
+| `@close`                | event when the prompt is dismissed         |                                                                                          |
+
 
 Example usage with custom props:
 
@@ -94,7 +97,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <PWAPrompt :isShown="shouldShowPWAPrompt" />
+  <PWAPrompt :isShown="shouldShowPWAPrompt" @close="shouldShowPWAPrompt = false" />
 </template>
 ```
 
