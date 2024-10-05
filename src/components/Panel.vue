@@ -18,7 +18,7 @@ const props = defineProps<{
 <style module>
 .panel {
   background-color: #222222;
-  border-radius: 13px 13px 0 0;
+  border-radius: 10px;
   bottom: 0;
   box-sizing: border-box;
   left: 0;
@@ -29,6 +29,8 @@ const props = defineProps<{
   width: 100%;
   box-shadow: 0 0px 100px rgba(0, 0, 0, 0.23), 0 0px 100px rgba(0, 0, 0, 0.23);
   z-index: 999999;
+  margin: 0 8px 10px;
+  width: calc(100vw - 16px);
 }
 
 .visible {
