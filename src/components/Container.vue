@@ -1,7 +1,7 @@
 <template>
   <div :class="[$style.container, 'iOSPWA-container']">
     <Overlay :isOpen="isOpen" @close="dismissPrompt" />
-    <Panel :isOpen="isOpen">
+    <Panel :isOpen="isOpen" @transitionend=" !isOpen && emit('close')">
       <Header
         :appIconPath="appIconPath"
         :copySubtitle="copySubtitle"
@@ -50,7 +50,6 @@ const dismissPrompt = () => {
   document.body.classList.remove($style.noScroll);
   isOpen.value = false;
 
-  emit('close')
 };
 
 onMounted(() => {
