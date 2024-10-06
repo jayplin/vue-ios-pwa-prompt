@@ -1,8 +1,12 @@
 {
   "name": "vue-ios-pwa-prompt",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayplin/vue-ios-pwa-prompt.git"
+  },
   "files": [
     "dist"
   ],
